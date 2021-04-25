@@ -1,0 +1,9 @@
+/*You are given a table, Projects, containing three columns: Task_ID, Start_Date and End_Date. It is guaranteed that the difference between the End_Date and the Start_Date is equal to 1 day for each row in the table.*/
+// Solution
+
+
+select Start_Date, Min(End_Date)
+from (select Start_Date from Projects where Start_Date not in (select End_Date from Projects)) as a,(select End_Date from Projects where End_Date not in(select Start_Date from Projects)) as b
+where Start_Date < End_Date
+group by Start_Date
+order by DATEDIFF(Start_Date,Min(End_Date)) Desc, Start_Date
